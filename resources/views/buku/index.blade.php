@@ -1,4 +1,16 @@
-<table class="table table-striped">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Buku Brayyy</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <table class="table table-striped">
     <thead>
         <tr>
             <th>id</th>
@@ -17,7 +29,28 @@
                 <td>{{ $buku->penulis }}</td>
                 <td>{{ "Rp ".number_format($buku->harga, 2, ',', '.') }}</td>
                 <td>{{ $buku->tgl_terbit }}</td>
+                <td>
+                    <form action="{{ route('buku.destroy', $buku->id) }}" method="post">
+                        @csrf
+                        <button onclick="return confirm('Yakin mau dihapus?')">Hapus</button>
+                    </form>
+                    <a href="{{ route('buku.edit', $buku->id) }}">Edit</a>
+                </td>
             </tr>
         @endforeach
     </tbody>
-</table>
+
+    <tfoot>
+            <tr>
+                <th> TOTAL </th>
+                <th>{{ $jumlah_data }}</th>
+                <th colspan="1"></th>
+                <th>{{ $total_harga }}</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <p align='right'><a href="{{ route('buku.create') }}"> TAMBAH BUKU </a> </p>
+
+</body>
+</html>
